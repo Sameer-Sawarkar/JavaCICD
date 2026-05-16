@@ -8,13 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/Sameer-Sawarkar/JavaJenkinsCICD.git'
-            }
-        }
-
         stage('Build JAR') {
             steps {
                 sh 'mvn clean package'
