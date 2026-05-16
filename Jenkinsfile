@@ -69,7 +69,7 @@ pipeline {
                 body: """
                 <!DOCTYPE html>
                 <html>
-                <body style="font-family: Arial; background:#f4f6f8; padding:20px;">
+                <body style="font-family: Verdana; background:#f4f6f8; padding:20px;">
                   <div style="max-width:700px;margin:auto;background:#fff;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);overflow:hidden;">
                     
                     <div style="background:#1f2937;color:#fff;padding:20px;text-align:center;font-size:20px;">
@@ -86,7 +86,7 @@ pipeline {
                       <p><b>Build:</b> #${env.BUILD_NUMBER}</p>
 
                       <h3>Deployment</h3>
-                      <p><b>Docker Image:</b> ${DOCKER_IMAGE}:${DOCKER_TAG}</p>
+                      <p><b>Docker Image:</b> ${IMAGE_NAME}:${IMAGE_TAG}</p>
                       <p><b>Status:</b> Successfully Deployed</p>
 
                       <a href="${env.BUILD_URL}" 
@@ -116,7 +116,7 @@ pipeline {
                 body: """
                 <!DOCTYPE html>
                 <html>
-                <body style="font-family: Arial; background:#f4f6f8; padding:20px;">
+                <body style="font-family: Verdana; background:#f4f6f8; padding:20px;">
                   <div style="max-width:700px;margin:auto;background:#fff;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);overflow:hidden;">
                     
                     <div style="background:#1f2937;color:#fff;padding:20px;text-align:center;font-size:20px;">
