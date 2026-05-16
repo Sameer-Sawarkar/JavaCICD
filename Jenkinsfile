@@ -8,9 +8,22 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Sameer-Sawarkar/JavaJenkinsCICD.git'
+            }
+        }
+
         stage('Build JAR') {
             steps {
                 sh 'mvn clean package'
+            }
+        }
+
+        stage('Verify JAR') {
+            steps {
+                sh 'ls -l target/'
             }
         }
 
@@ -26,19 +39,22 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
+        stage('Login to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'docker-creds',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
-                    sh '''
-                    echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                    docker push $IMAGE_NAME:$IMAGE_TAG
-                    docker push $IMAGE_NAME:latest
-                    '''
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                 }
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                sh 'docker push $IMAGE_NAME:$IMAGE_TAG'
+                sh 'docker push $IMAGE_NAME:latest'
             }
         }
 
@@ -50,6 +66,15 @@ pipeline {
                 docker run -d -p 8083:8081 --name javacicd $IMAGE_NAME:$IMAGE_TAG
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline executed successfully 🚀"
+        }
+        failure {
+            echo "Pipeline failed ❌"
         }
     }
 }
