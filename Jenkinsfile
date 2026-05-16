@@ -63,11 +63,38 @@ pipeline {
     }
 
     post {
-        success {
-            echo "Pipeline executed successfully 🚀"
-        }
-        failure {
-            echo "Pipeline failed ❌"
-        }
+    success {
+        emailext (
+            subject: "SUCCESS: Job ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
+            body: """
+            🎉 Build Success!
+
+            Job Name: ${env.JOB_NAME}
+            Build Number: ${env.BUILD_NUMBER}
+            URL: ${env.BUILD_URL}
+
+            Docker Image: sameersawarkar/my-app:${env.BUILD_NUMBER}
+            """,
+            to: "vaishupise1@gmail.com;smrsawarkar1@gmail.com",
+            attachLog: true
+        )
     }
+
+    failure {
+        emailext (
+            subject: "FAILED: Job ${env.JOB_NAME} Build #${env.BUILD_NUMBER}",
+            body: """
+            ❌ Build Failed!
+
+            Job Name: ${env.JOB_NAME}
+            Build Number: ${env.BUILD_NUMBER}
+            URL: ${env.BUILD_URL}
+
+            Please check attached logs.
+            """,
+            to: "vaishupise1@gmail.com;smrsawarkar1@gmail.com",
+            attachLog: true
+        )
+    }
+}
 }
