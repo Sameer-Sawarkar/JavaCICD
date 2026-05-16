@@ -106,7 +106,7 @@ pipeline {
                 mimeType: 'text/html',
 		to: "smrsawarkar1@gmail.com;sameersawarkar17@gmail.com;vaishupise1@gmail.com",
                 attachLog: true,
-                compressLog: true
+                compressLog: false
             )
         }
 
@@ -152,7 +152,7 @@ pipeline {
                 mimeType: 'text/html',
                 to: "smrsawarkar1@gmail.com;sameersawarkar17@gmail.com;vaishupise1@gmail.com",
                 attachLog: true,
-                compressLog: true
+                compressLog: false
             )
         }
     }
